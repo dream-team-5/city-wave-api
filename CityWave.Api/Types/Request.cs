@@ -38,19 +38,26 @@ namespace CityWave.Api.Types
 
                 HttpResponseMessage response;
 
-                switch (_method)
+                try
                 {
-                    case RequestMethod.Get:
-                        response = await client.GetAsync(_uri);
-                        break;
-                    case RequestMethod.Post:
-                        response = await client.PostAsync(_uri, _content);
-                        break;
-                    case RequestMethod.Put:
-                        response = await client.PutAsync(_uri, _content);
-                        break;
-                    default:
-                        return null;
+                    switch (_method)
+                    {
+                        case RequestMethod.Get:
+                            response = await client.GetAsync(_uri);
+                            break;
+                        case RequestMethod.Post:
+                            response = await client.PostAsync(_uri, _content);
+                            break;
+                        case RequestMethod.Put:
+                            response = await client.PutAsync(_uri, _content);
+                            break;
+                        default:
+                            return null;
+                    }
+                }
+                catch (Exception e)
+                {
+                    return new Response<T>() { Ok = false, Description = e.Message, Result = default(T) };
                 }
 
                 return JsonConvert.DeserializeObject<Response<T>>(await response.Content.ReadAsStringAsync());
