@@ -6,7 +6,7 @@ using System.Net;
 
 namespace CityWave.Api
 {
-    static class Helper
+    public static class Helper
     {
         private static readonly JsonSerializerSettings jsonSettings = new JsonSerializerSettings()
         {
