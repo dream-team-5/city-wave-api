@@ -7,16 +7,16 @@ namespace CityWave.Api
 {
     public class Client
     {
-        private string _token;
+        public string Token { get; }
 
         public Client(string token)
-            => _token = token;
+            => Token = token;
 
         #region Category
 
         public Task<Response<Category[]>> GetCategories()
         {
-            var parameters = new Dictionary<string, string> { { "token", _token } };
+            var parameters = new Dictionary<string, string> { { "token", Token } };
             var request = new Request<Category[]>(RequestMethod.Get, "/categories", parameters);
 
             return request.GetResponse();
@@ -25,7 +25,7 @@ namespace CityWave.Api
         public Task<Response<ShortPlace[]>> GetCategoryPlaces(long categoryId, string name = null, int? page = null)
         {
             var parameters = new Dictionary<string, string> {
-                { "token", _token },
+                { "token", Token },
                 { "page", page?.ToString() },
                 { "name", name }
             };
@@ -40,7 +40,7 @@ namespace CityWave.Api
 
         public Task<Response<City[]>> GetCities()
         {
-            var parameters = new Dictionary<string, string> { { "token", _token } };
+            var parameters = new Dictionary<string, string> { { "token", Token } };
             var request = new Request<City[]>(RequestMethod.Get, "/cities", parameters);
 
             return request.GetResponse();
@@ -49,7 +49,7 @@ namespace CityWave.Api
         public Task<Response<ShortPlace[]>> GetCityPlaces(long cityId, string name = null, int? page = null)
         {
             var parameters = new Dictionary<string, string> {
-                { "token", _token },
+                { "token", Token },
                 { "page", page?.ToString() },
                 { "name", name }
             };
@@ -65,7 +65,7 @@ namespace CityWave.Api
         public Task<Response<City[]>> GetComments(int? page = null)
         {
             var parameters = new Dictionary<string, string> {
-                { "token", _token },
+                { "token", Token },
                 { "page", page?.ToString() }
             };
             var request = new Request<City[]>(RequestMethod.Get, "/comments", parameters);
@@ -75,7 +75,7 @@ namespace CityWave.Api
 
         public Task<Response<ShortPlace[]>> CreateComment(long placeId, string text)
         {
-            var parameters = new Dictionary<string, string> { { "token", _token } };
+            var parameters = new Dictionary<string, string> { { "token", Token } };
             var data = new Dictionary<string, string> { { "text", text } };
 
             var request = new Request<ShortPlace[]>(RequestMethod.Post, $"/places/{ placeId }/comments", parameters, data);
@@ -90,7 +90,7 @@ namespace CityWave.Api
         public Task<Response<ShortPlace[]>> GetSavedPlaces(string name = null, int? page = null)
         {
             var parameters = new Dictionary<string, string> {
-                { "token", _token },
+                { "token", Token },
                 { "page", page?.ToString() },
                 { "name", name }
             };
@@ -101,7 +101,7 @@ namespace CityWave.Api
 
         public Task<Response<Place>> CreateSavedPlace(long placeId)
         {
-            var parameters = new Dictionary<string, string> { { "token", _token } };
+            var parameters = new Dictionary<string, string> { { "token", Token } };
             var data = new Dictionary<string, string> { { "place_id", placeId.ToString() } };
 
             var request = new Request<Place>(RequestMethod.Post, $"/saved_places", parameters, data);
@@ -112,7 +112,7 @@ namespace CityWave.Api
         public Task<Response<ShortPlace[]>> GetVisitedPlaces(string name = null, int? page = null)
         {
             var parameters = new Dictionary<string, string> {
-                { "token", _token },
+                { "token", Token },
                 { "page", page?.ToString() },
                 { "name", name }
             };
@@ -123,7 +123,7 @@ namespace CityWave.Api
 
         public Task<Response<Place>> CreateVisitedPlace(long placeId)
         {
-            var parameters = new Dictionary<string, string> { { "token", _token } };
+            var parameters = new Dictionary<string, string> { { "token", Token } };
             var data = new Dictionary<string, string> { { "place_id", placeId.ToString() } };
 
             var request = new Request<Place>(RequestMethod.Post, $"/visited_places", parameters, data);
@@ -133,7 +133,7 @@ namespace CityWave.Api
 
         public Task<Response<Place>> GetPlace(long placeId)
         {
-            var parameters = new Dictionary<string, string> { { "token", _token } };
+            var parameters = new Dictionary<string, string> { { "token", Token } };
             var request = new Request<Place>(RequestMethod.Get, $"/places/{ placeId }", parameters);
 
             return request.GetResponse();
@@ -142,7 +142,7 @@ namespace CityWave.Api
         public Task<Response<Comment[]>> GetPlaceComments(long placeId, int? page = null)
         {
             var parameters = new Dictionary<string, string> {
-                { "token", _token },
+                { "token", Token },
                 { "page", page?.ToString() }
             };
             var request = new Request<Comment[]>(RequestMethod.Get, $"/places/{ placeId }/comments", parameters);
@@ -156,7 +156,7 @@ namespace CityWave.Api
 
         public Task<Response<Profile>> GetProfile()
         {
-            var parameters = new Dictionary<string, string> { { "token", _token } };
+            var parameters = new Dictionary<string, string> { { "token", Token } };
             var request = new Request<Profile>(RequestMethod.Get, $"/profile", parameters);
 
             return request.GetResponse();
@@ -171,7 +171,7 @@ namespace CityWave.Api
 
         public Task<Response<Profile>> UpdateProfile(string username, string password)
         {
-            var parameters = new Dictionary<string, string> { { "token", _token } };
+            var parameters = new Dictionary<string, string> { { "token", Token } };
             var data = new Dictionary<string, string>
             {
                 { "username", username },
@@ -238,7 +238,7 @@ namespace CityWave.Api
 
         public Task<Response<Tag[]>> GetTags()
         {
-            var parameters = new Dictionary<string, string> { { "token", _token } };
+            var parameters = new Dictionary<string, string> { { "token", Token } };
             var request = new Request<Tag[]>(RequestMethod.Get, "/tags", parameters);
 
             return request.GetResponse();
@@ -247,7 +247,7 @@ namespace CityWave.Api
         public Task<Response<ShortPlace[]>> GetTagPlaces(long tagId, string name = null, int? page = null)
         {
             var parameters = new Dictionary<string, string> {
-                { "token", _token },
+                { "token", Token },
                 { "page", page?.ToString() },
                 { "name", name }
             };
@@ -262,7 +262,7 @@ namespace CityWave.Api
 
         public Task<Response<Wish>> GetWish()
         {
-            var parameters = new Dictionary<string, string> { { "token", _token } };
+            var parameters = new Dictionary<string, string> { { "token", Token } };
             var request = new Request<Wish>(RequestMethod.Get, "/wish", parameters);
 
             return request.GetResponse();
