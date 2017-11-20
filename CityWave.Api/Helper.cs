@@ -1,8 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using CityWave.Api.Types;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace CityWave.Api
 {
@@ -24,6 +27,13 @@ namespace CityWave.Api
                 .Select(kvp => $"{ kvp.Key }={ WebUtility.UrlEncode(kvp.Value) }");
 
             return string.Join("&", parameters);
+        }
+
+        public async static Task Process<T>(this Task<Response<T>> responseTask, Action<T> success, Action<object> failure)
+        {
+            var response = await responseTask;
+
+            response.Process(success, failure);
         }
     }
 }
